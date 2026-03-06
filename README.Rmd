@@ -31,8 +31,7 @@ ee_Initialize(force = TRUE)
 ### Example Usage 
 
 ### Define Area of Interest (AOI) and Dates
-#### Bounding box format: xmin, ymin, xmax, ymax
-bbox_test <- c(15, -4, 15.5, -3.5)
+bbox_test <- c(15, -4, 15.5, -3.5)  # xmin, ymin, xmax, ymax
 start_date <- "2023-01-01"
 end_date   <- "2023-01-31"
 
@@ -85,6 +84,11 @@ print(extracted_flood$first()$getInfo())
 This package is intended for scientific and exploratory use on Sentinel-1 radar data.
 Make sure your Google Earth Engine account is active before using the package.
 Color palettes and thresholds can be adjusted according to your needs.
+
+### Requirements
+- R >= 4.3
+- rgee package
+- Miniconda environment with Python for rgee
 
 Developed by Esperance Kandjale, 2026.
 
