@@ -81,6 +81,12 @@ print(extracted_flood$first()$getInfo())
 | `radar_flood()`            | Generates a flood mask using a threshold            |
 | `radar_extract_polygons()` | Extracts mean radar values for polygons             |
 | `radar_visualize()`        | Visualizes radar images or masks in RStudio         |
+
+### Requirements
+- R >= 4.3
+- rgee package
+- Miniconda environment with Python for rgee
+
 ### Notes
 This package is intended for scientific and exploratory use on Sentinel-1 radar data.
 Make sure your Google Earth Engine account is active before using the package.
