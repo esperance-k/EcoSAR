@@ -1,0 +1,92 @@
+---
+title: "EcoSAR"
+author: "Esperance Kandjale"
+date: "2026-03-05"
+output: html_document
+---
+**EcoSAR** is an R package for processing and analyzing **Sentinel-1 radar** data using **Google Earth Engine**.  
+It allows you to load radar images, compute statistics (mean backscatter), detect flooded areas, and extract values by polygons.
+---
+
+### ️Installation
+Install dependencies if not already done:
+
+```r
+For rgee (Google Earth Engine)
+install.packages("rgee")
+library(rgee)
+
+### Load your local EcoSAR package
+library(devtools)
+load_all("C:/R_Package/EcoSAR")  # path to your package
+library(EcoSAR)
+
+### Python Configuration for rgee : Point R to your rgee Miniconda environment
+library(reticulate)
+use_python("C:/Users/PC/miniconda3/envs/rgee/python.exe", required = TRUE)
+
+### Initialize Google Earth Engine
+ee_Initialize(force = TRUE)
+
+### Example Usage 
+
+### Define Area of Interest (AOI) and Dates
+#### Bounding box format: xmin, ymin, xmax, ymax
+bbox_test <- c(15, -4, 15.5, -3.5)
+start_date <- "2023-01-01"
+end_date   <- "2023-01-31"
+
+#### Load Sentinel-1 Images
+radar_col <- radar_load(
+  start_date  = start_date,
+  end_date    = end_date,
+  bbox        = bbox_test,
+  polarization = "VV"
+)
+print(radar_col)
+
+### Compute Mean Radar Backscatter
+radar_mean <- radar_summary(radar_col)
+print(radar_mean)
+
+### Flood Detection (Simple Threshold)
+flood_mask <- radar_flood(
+  img       = radar_mean,
+  threshold = -15,
+  aoi       = ee$Geometry$Rectangle(bbox_test)
+)
+print(flood_mask)
+
+### Extract Mean Values per Polygon
+poly_fc <- ee$FeatureCollection(
+  ee$Feature(
+    ee$Geometry$Rectangle(bbox_test),
+    list(name = "TestPolygon")
+  )
+)
+
+### Radar mean
+extracted_radar <- radar_extract_polygons(radar_mean, poly_fc)
+print(extracted_radar$first()$getInfo())
+
+### Flood mask (0/1)
+extracted_flood <- radar_extract_polygons(flood_mask, poly_fc)
+print(extracted_flood$first()$getInfo())
+
+### Main Functions
+| Function                   | Description                                         |
+| -------------------------- | --------------------------------------------------- |
+| `radar_load()`             | Loads Sentinel-1 images for a given period and area |
+| `radar_summary()`          | Computes mean backscatter over an image collection  |
+| `radar_flood()`            | Generates a flood mask using a threshold            |
+| `radar_extract_polygons()` | Extracts mean radar values for polygons             |
+| `radar_visualize()`        | Visualizes radar images or masks in RStudio         |
+### Notes
+This package is intended for scientific and exploratory use on Sentinel-1 radar data.
+Make sure your Google Earth Engine account is active before using the package.
+Color palettes and thresholds can be adjusted according to your needs.
+
+Developed by Esperance Kandjale, 2026.
+
+
+

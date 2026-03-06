@@ -1,0 +1,21 @@
+Package: EcoSAR
+Type: Package
+Title: Environmental SAR Analysis Tools Using Sentinel-1 and Google Earth Engine
+Version: 0.1.0
+Authors@R: 
+    person("Esperance", "Kandjale", 
+           role = c("aut", "cre"))
+Description: 
+    EcoSAR provides tools to load, process, summarize,
+    visualize, and extract Sentinel-1 Synthetic Aperture Radar (SAR)
+    data from Google Earth Engine using the rgee package.
+    The package is designed for environmental monitoring applications
+    including wetlands, forests, soil moisture analysis,
+    flood detection, and land cover change studies.
+License: MIT
+Encoding: UTF-8
+LazyData: true
+Imports:
+    rgee
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
