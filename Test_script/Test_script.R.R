@@ -13,9 +13,29 @@ use_python("C:/Users/PC/miniconda3/envs/rgee/python.exe", required = TRUE)
 # Check Python configuration
 py_config()
 
-
 # ---------------------------------------------------------
 # 2️⃣ Load rgee and Initialize Earth Engine
+# ---------------------------------------------------------
+library(rgee)
+ee_Initialize(force = TRUE)
+
+# ---------------------------------------------------------
+# 3️⃣ Install and Load EcoSAR from GitHub
+# ---------------------------------------------------------
+if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
+library(devtools)
+
+# Install EcoSAR directly from GitHub if not already installed
+if (!requireNamespace("EcoSAR", quietly = TRUE)) {
+  devtools::install_github("esperance-k/EcoSAR")
+}
+
+# Load the package
+library(EcoSAR)
+
+
+# ---------------------------------------------------------
+# 4️⃣ Load rgee and Initialize Earth Engine
 # ---------------------------------------------------------
 library(rgee)
 
@@ -24,7 +44,7 @@ ee_Initialize(force = TRUE)
 
 
 # ---------------------------------------------------------
-# 3️⃣ Load EcoSAR Package (Local Development Version)
+# 5️⃣ Load EcoSAR Package (Local Development Version)
 # ---------------------------------------------------------
 library(devtools)
 
@@ -35,7 +55,7 @@ load_all("C:/R_Package/EcoSAR")
 
 
 # ---------------------------------------------------------
-# 4️⃣ Define Area of Interest (AOI) and Dates
+#  6️⃣ Define Area of Interest (AOI) and Dates
 # ---------------------------------------------------------
 # Bounding box format: xmin, ymin, xmax, ymax
 bbox_test <- c(15, -4, 15.5, -3.5)
@@ -45,7 +65,7 @@ end_date   <- "2023-01-31"
 
 
 # ---------------------------------------------------------
-# 5️⃣ Load Sentinel-1 SAR Data
+# 7️⃣ Load Sentinel-1 SAR Data
 # ---------------------------------------------------------
 cat("Loading Sentinel-1 SAR data...\n")
 
@@ -60,7 +80,7 @@ print(radar_col)
 
 
 # ---------------------------------------------------------
-# 6️⃣ Compute Mean Radar Backscatter
+# 8️⃣ Compute Mean Radar Backscatter
 # ---------------------------------------------------------
 cat("Computing mean radar backscatter...\n")
 
@@ -70,7 +90,7 @@ print(radar_mean)
 
 
 # ---------------------------------------------------------
-# 7️⃣ Flood Detection (Thresholding)
+# 9️⃣ Flood Detection (Thresholding)
 # ---------------------------------------------------------
 cat("Computing flood mask...\n")
 
@@ -84,7 +104,7 @@ print(flood_mask)
 
 
 # ---------------------------------------------------------
-# 8️⃣ Extract Mean Values Per Polygon
+# 🔟 Extract Mean Values Per Polygon
 # ---------------------------------------------------------
 cat("Extracting radar values per polygon...\n")
 
@@ -105,7 +125,7 @@ print(extracted_flood$first()$getInfo())
 
 
 # ---------------------------------------------------------
-# 9️⃣ Visualize Results
+# 1️⃣1️⃣ Visualize Results
 # ---------------------------------------------------------
 cat("Visualizing radar mean...\n")
 
