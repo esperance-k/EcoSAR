@@ -4,6 +4,7 @@ Title: Environmental SAR Analysis Tools Using Sentinel-1 and Google Earth Engine
 Version: 0.1.0
 Authors@R: 
     person("Esperance", "Kandjale", 
+           email = "esperance.kandjale@stud-mail.uni-wuerzburg.de",
            role = c("aut", "cre"))
 Description: 
     EcoSAR provides tools to load, process, summarize,
