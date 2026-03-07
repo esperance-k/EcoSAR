@@ -5,10 +5,11 @@
 # ---------------------------------------------------------
 # 1️⃣ Set Python Environment (MUST be first)
 # ---------------------------------------------------------
+#install.packages("reticulate")
 library(reticulate)
 
 # Force R to use the correct Miniconda rgee environment
-use_python("C:/Users/PC/miniconda3/envs/rgee/python.exe", required = TRUE)
+use_python("C:/Users/Lenovo/anaconda3/python.exe", required = TRUE)
 
 # Check Python configuration
 py_config()
@@ -16,8 +17,11 @@ py_config()
 # ---------------------------------------------------------
 # 2️⃣ Load rgee and Initialize Earth Engine
 # ---------------------------------------------------------
+#install.packages("rgee")
 library(rgee)
-ee_Initialize(force = TRUE)
+#ee_clean_user_credentials()
+ee_Authenticate()
+ee_Initialize(assetId = "PBirung")
 
 # ---------------------------------------------------------
 # 3️⃣ Install and Load EcoSAR from GitHub
@@ -30,9 +34,8 @@ if (!requireNamespace("EcoSAR", quietly = TRUE)) {
   devtools::install_github("esperance-k/EcoSAR")
 }
 
-# Load the package
+3# Load the package
 library(EcoSAR)
-
 
 # ---------------------------------------------------------
 # 4️⃣ Load rgee and Initialize Earth Engine
